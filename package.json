@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "cross-env DEBUG=nodeapi:* nodemon"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -14,5 +15,8 @@
     "http-errors": "~1.6.2",
     "mongoose": "^5.2.5",
     "morgan": "~1.9.0"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0"
   }
 }

@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+require('dotenv').config(); // Requiero módulo para establecer variables de entorno en process.env cargadas en fichero .env
 
 var app = require('../app');
 var debug = require('debug')('nodepop:server');
