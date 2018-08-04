@@ -6,7 +6,7 @@
             "precio": 350,
             "fotos": "guitarra.jpg",
             "tags": ["lifestyle"],
-            "urlFoto": "images/acoustic-guitar.jpg"
+            "urlFoto": "images/anuncios/acoustic-guitar.jpg"
         },
         {
             "nombre": "Samsung Note 8",
@@ -14,7 +14,7 @@
             "precio": 450,
             "fotos": "note8.jpg",
             "tags": ["mobile", "lifestyle"],
-            "urlFoto": "images/galaxy-note-8.jpg"
+            "urlFoto": "images/anuncios/galaxy-note-8.jpg"
         },
         {
             "nombre": "Iphone X",
@@ -22,7 +22,7 @@
             "precio": 500,
             "fotos": "iphonex.jpg",
             "tags": ["lifestyle", "mobile"],
-            "urlFoto": "images/iPhone-X.jpg"
+            "urlFoto": "images/anuncios/iPhone-X.jpg"
         },
         {
             "nombre": "Moto Suzuki Burgman",
@@ -30,7 +30,7 @@
             "precio": 1000,
             "fotos": "burgman.jpg",
             "tags": ["motor"],
-            "urlFoto": "images/burgman.jpg"
+            "urlFoto": "images/anuncios/burgman.jpg"
         },
         {
             "nombre": "Peugeot 308",
@@ -38,7 +38,7 @@
             "precio": 8000,
             "fotos": "peugeot.jpg",
             "tags": ["motor"],
-            "urlFoto": "images/308-hdi.jpg"           
+            "urlFoto": "images/anuncios/308-hdi.jpg"           
         },
         {
             "nombre": "Macbook Pro",
@@ -46,7 +46,7 @@
             "precio": 1250,
             "fotos": "macbook.jpg",
             "tags": ["lifestyle", "work"],
-            "urlFoto": "images/macbook.jpg"
+            "urlFoto": "images/anuncios/macbook.jpg"
         }
     ]
 }
