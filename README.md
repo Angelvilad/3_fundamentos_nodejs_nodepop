@@ -50,7 +50,7 @@ Los siguientes son los parámetros que el API utilizará para filtrar la lista d
 - *venta:* Posibles valores *true* (artículo en venta), *false* (se busca artículo para comprar)
 - *precio:* Se puede especificar un precio exacto, un rango de precio (min a max), un precio igual o mínimo, un precio igual o máximo. El dato se pasará en el siguiente formato respectivamente: num, nunMin-numMax, num-, -num. *"Ej 300, 100-600, 300-, -300"*
 - *tags:* Anuncio que contenga uno o más de los 4 tags permitidos: *mobile, motor, lifestyle, work*. Si se especifica más de un tag, en la query separarán con espacios entre ellos.
--*urlFoto:* nombre del archivo de la foto del artículo (se guardarán en raiz, como ruta estática, en el path "*images/anuncios/*")
+- *urlFoto:* nombre del archivo de la foto del artículo (se guardarán en raiz, como ruta estática, en el path "*images/anuncios/*")
 
 #### Opciones de listado
 #### GET http://localhost:[port]/apiv1/anuncios?[query string]
