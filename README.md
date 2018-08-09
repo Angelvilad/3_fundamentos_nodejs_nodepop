@@ -26,6 +26,8 @@ Para inicializar el servidor de la base de datos *mongoDB*, ir a la ruta donde e
 
 Si no hemos indicado otro puerto, por defecto *MongoDB* utilizará el 27017.
 
+Antes de inicializar *Nodepop* hay que definir una variable de entorno que especifique la url de conexión a la base de datos MongoDB establecida previamente. Esta debe quedar guardad en un archivo, en la raiz del proyecto, llamado *.env*. Dentro se debe establecer la variable de entorno *MONGOOSE_CONNECTION_STRING* que indique la url (en protocolo mongodb://) para conectar a la base de datos. Ej. *MONGOOSE_CONNECTION_STRING=mongodb://localhost:27017/nodepop*. Cambiar el puerto si se ha establecido otro cuando lenvantamos el servidor mongoDB. */nodepop* en la url indica la base de datos a la que se va a conectar
+
 Para inicializar *Nodepop* se puede hacer en los siguientes entornos:
 - Desarrollo: *"npm run dev"* (ejecutará nodemon)
 - Producción: *"npm start"* (ejecutará node)

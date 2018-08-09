@@ -23,7 +23,7 @@ anuncioSchema.statics.listar = function(filtro, limit, skip,sort,page, fields) {
     }
     query.sort(sort);
     query.select(fields);
-    return query.exec(); //devolvemos la promesa (sin estar resuelta, luego ya cuando llamemos a esta funcion asíncrona lo hacemos con un await)
+    return query.exec(); //devolvemos promesa devuelta
 }
 
 // crear el modelo con ese esquema

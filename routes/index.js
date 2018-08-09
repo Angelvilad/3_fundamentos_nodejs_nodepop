@@ -5,21 +5,6 @@ var Anuncio = require('../models/Anuncio')
 
 /**
  * GET /
- * Pagina home que muestra anuncios segun criterios en la query string
- * Estos criterios pueden ser filtros por:
- * -nombre: busca anuncios que comiencen por el texto especificado
- * -venta: busca anuncios de venta o compra, segun valor booleano especificado (true=venta,false=compra)
- * -precio: busca por precio, coincidencia exacta 1 solo valor (n), rango de precios (2 valores n-n),
- *  precio min (n-) o precio maximo (-n)
- * -tags: busca anuncios por lista de tags especificados, separados por un espacio
- * 
- * Se puede especificar orden y/o paginacion  con:
- * -skip: comienza a listar a partir del siguiente al valor especificado
- * -limit: numero de anuncios que se van a listar
- * -sort: ordena por criterio especificado en ascendente (descendente con el valor en negativo),
- *  por cualquiera de los registros del documento
- * 
- * ***añadir al api tambien: listar tags, seleccionar campos a mostrar con field, buscar por id, crear anuncio...eliminar por ID?,actualizar por ID?
  */
 router.get('/', async (req, res, next) => {
   try{

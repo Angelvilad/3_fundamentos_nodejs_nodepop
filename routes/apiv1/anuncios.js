@@ -9,20 +9,6 @@ const Anuncio = require('../../models/Anuncio');
 /**
  * GET /
  * Devuelve array de objetos en formato JSON de los anuncios segun criterios en la query string
- * Estos criterios pueden ser filtros por:
- * -nombre: busca anuncios que comiencen por el texto especificado
- * -venta: busca anuncios de venta o compra, segun valor booleano especificado (true=venta,false=compra)
- * -precio: busca por precio, coincidencia exacta 1 solo valor (n), rango de precios (2 valores n-n),
- *  precio min (n-) o precio maximo (-n)
- * -tags: busca anuncios por lista de tags especificados, separados por un espacio
- * 
- * Se puede especificar el modo de obtener la lista (en orden, paginada, indicando que campos mostrar/omitir):
- * -skip: comienza a listar a partir del siguiente al valor especificado
- * -limit: numero de anuncios que se van a listar
- * -sort: ordena por criterio especificado en ascendente (descendente con el valor en negativo),
- *  por cualquiera de los registros del documento
- * -fields: muesta/omite los campos indicados
- * 
  */
 router.get('/', async (req, res, next) => {
     try{

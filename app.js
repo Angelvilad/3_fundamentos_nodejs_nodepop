@@ -6,9 +6,6 @@ var logger = require('morgan');
 
 const { isAPI } = require('./lib/utils'); //esto se pone asi porque como require devuelve un objeto, en este caso con una propiedad, directamente le asigno una variable, sino para referirme a la propiedad tendria que hacer isAPI.isAPi
 
-//var indexRouter = require('./routes/index'); Estas variables de ruta las crea express pero en el curso se hacen
-//var usersRouter = require('./routes/users'); de otra manera.
-
 var app = express();
 
 // view engine setup
@@ -60,7 +57,7 @@ app.use(function(err, req, res, next) {
     : `Not valid - ${errorInfo.param} ${errorInfo.msg}`;
   }
     
-  res.status(err.status || 500); //ponemos status de respuesta con la del error correspondiente o error 500 (VIDEO 2 DIA 5 ~00:37:00)
+  res.status(err.status || 500); //ponemos status de respuesta con la del error correspondiente o error 500
 
   if (isAPI(req)) {
     res.json({ succes: false, error: err.message});
