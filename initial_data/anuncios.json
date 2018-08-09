@@ -4,49 +4,43 @@
             "nombre": "Guitarra electroacústica",
             "venta": true,
             "precio": 350,
-            "fotos": "guitarra.jpg",
             "tags": ["lifestyle"],
-            "urlFoto": "images/anuncios/acoustic-guitar.jpg"
+            "urlFoto": "acoustic-guitar.jpg"
         },
         {
             "nombre": "Samsung Note 8",
             "venta": true,
             "precio": 450,
-            "fotos": "note8.jpg",
             "tags": ["mobile", "lifestyle"],
-            "urlFoto": "images/anuncios/galaxy-note-8.jpg"
+            "urlFoto": "galaxy-note-8.jpg"
         },
         {
             "nombre": "Iphone X",
             "venta": false,
             "precio": 500,
-            "fotos": "iphonex.jpg",
             "tags": ["lifestyle", "mobile"],
-            "urlFoto": "images/anuncios/iPhone-X.jpg"
+            "urlFoto": "iPhone-X.jpg"
         },
         {
             "nombre": "Moto Suzuki Burgman",
             "venta": false,
             "precio": 1000,
-            "fotos": "burgman.jpg",
             "tags": ["motor"],
-            "urlFoto": "images/anuncios/burgman.jpg"
+            "urlFoto": "burgman.jpg"
         },
         {
             "nombre": "Peugeot 308",
             "venta": true,
             "precio": 8000,
-            "fotos": "peugeot.jpg",
             "tags": ["motor"],
-            "urlFoto": "images/anuncios/308-hdi.jpg"           
+            "urlFoto": "308-hdi.jpg"           
         },
         {
             "nombre": "Macbook Pro",
             "venta": true,
             "precio": 1250,
-            "fotos": "macbook.jpg",
             "tags": ["lifestyle", "work"],
-            "urlFoto": "images/anuncios/macbook.jpg"
+            "urlFoto": "macbook.jpg"
         }
     ]
 }

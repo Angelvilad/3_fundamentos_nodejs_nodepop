@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const { isAPI } = require('./lib/utils'); //esto se pone asi porque como require devuelve un objeto, en este caso con una propiedad, directamente le asigno una variable, sino para referirme a la propiedad tendria que hacer isAPI.isAPi
+
 //var indexRouter = require('./routes/index'); Estas variables de ruta las crea express pero en el curso se hacen
 //var usersRouter = require('./routes/users'); de otra manera.
 
@@ -46,14 +48,30 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler OJO AQUI SE CAMBIA BASTANTE EN LAS CLASES !!!!!!!!!!!
+// error handler
 app.use(function(err, req, res, next) {
+
+  // Gestiona error de validación (no utilizado en este proyecto)
+  if (err.array) {
+    err.status = 422;
+    const errorInfo = err.array({ onlyFirstError: true})[0];
+    err.message = isAPI(req) ?
+    { message: 'Not valid', errors: err.mapped() }
+    : `Not valid - ${errorInfo.param} ${errorInfo.msg}`;
+  }
+    
+  res.status(err.status || 500); //ponemos status de respuesta con la del error correspondiente o error 500 (VIDEO 2 DIA 5 ~00:37:00)
+
+  if (isAPI(req)) {
+    res.json({ succes: false, error: err.message});
+    return;
+  }
+  
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
   res.render('error');
 });
 

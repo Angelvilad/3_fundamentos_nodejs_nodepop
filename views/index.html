@@ -12,14 +12,14 @@
 
     <section class="anuncios">
       <% listaAnuncios.forEach(anuncio => { %> 
-        <div>
+        <div class="anuncio-wrapper">
           <article class="anuncio">
           <figure>
-            <img src="<%= anuncio.urlFoto %>" alt="<%= anuncio.nombre %>">
+            <img src="images/anuncios/<%= anuncio.urlFoto %>" alt="<%= anuncio.nombre %>">
           </figure>
           <p class="precio"><%= anuncio.precio %></p>
           <h2 class="titulo-anuncio"><%= anuncio.nombre %></h2>
-          <p class="tags"><%= anuncio.tags %></p>
+          <p class="tags">tags: <%= anuncio.tags %></p>
         </div>
         </article>
       <% }); %>

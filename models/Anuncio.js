@@ -12,14 +12,22 @@ const anuncioSchema = mongoose.Schema({
     urlFoto: String
 });
 
+// crear un método estatico
+anuncioSchema.statics.listar = function(filtro, limit, skip,sort,page, fields) {
+    const query = Anuncio.find(filtro);
+    query.limit(limit);
+    if (page){
+        query.skip(limit * page);
+    } else {
+        query.skip(skip);
+    }
+    query.sort(sort);
+    query.select(fields);
+    return query.exec(); //devolvemos la promesa (sin estar resuelta, luego ya cuando llamemos a esta funcion asíncrona lo hacemos con un await)
+}
+
 // crear el modelo con ese esquema
 const Anuncio = mongoose.model('Anuncio', anuncioSchema);
-
-
-// crear un método estatico
-anuncioSchema.statics.listar = function(filtro, limit, skip, fields, sort) {
-    const query = Anuncio.find(filtro);// VOY POR AQUI
-}
 
 // y aunque no haga falta, lo exportamos
 module.exports = Anuncio;

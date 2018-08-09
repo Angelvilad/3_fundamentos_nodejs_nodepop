@@ -34,7 +34,7 @@ conn.once('open', async () => {
 
 /**
  * Pregunta al usuario por consola y devuleve una promesa con la respuesta. MIRAR SI ES MEJOR PONER ESTA
- * FUNCION EN CARPETA LIB/UTILS.JS
+ * FUNCION EN CARPETA LIB/UTILS.JS---Mirar tambien si hay que manejar posible error en promesa con try/catch??
  * @param {*} question 
  */
 function askUser(question) {

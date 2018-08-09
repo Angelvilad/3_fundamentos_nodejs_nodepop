@@ -1,0 +1,31 @@
+body {
+    padding: 2rem;
+}
+
+h1.title {
+    text-align: center;
+}
+
+section.anuncios {
+    display: flex;
+    flex-wrap: wrap;  
+    justify-content:flex-start;
+
+}
+
+div.anuncio-wrapper {
+    width: 20%;
+    margin: 1rem;   
+    
+}
+
+article.anuncio figure {
+    margin: 0;
+    border: 1px solid black;
+    height: 20rem;
+}
+
+img {
+    object-fit: cover;
+    height: 100%;
+}
