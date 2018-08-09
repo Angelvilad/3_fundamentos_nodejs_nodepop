@@ -58,7 +58,7 @@ Los siguientes son los parámetros que el API utilizará para moldear la lista:
 - *limit:* Establece un máximo de artículos a listar, por defecto queda establecido en 8
 - *skip:* Mostrar anuncios a partir del siguiente al dato especificado
 - *sort:* Ordenación ascendente del listado por el campo del anuncio indicado. Si se indica en negativo, con un signo "*-*" delante, el orden será descendente
-- *page:* En una lista paginada (hay un límite de los documentos a mostrar), muestra los anuncios correspondiente a la pagina indicada en el valor, mostrando un máximo de anuncios por página establecido por el parámetro limit o en su defecto de 8
+- *page:* En una lista paginada, muestra los anuncios correspondiente a la pagina indicada en el valor, mostrando un máximo de anuncios por página establecido por el parámetro limit o en su defecto de 8. Sólo se permite uno de estos 2 parámetros a la vez en la query string: *page* o *skip*. Si se establece *page* se obviará *skip* (simpre prevalecerá el parámetro page sobre skip)
 - *fields:* Muestra sólo el campo o los campos del anuncio indicados (con un espacio entre ellos si son varios campos). Omitirá, por el contrario, si se indica con el "*-*" delante. Por defecto, siempre mostrára también su identificativo *_id* en la base de datos. Este último se puede omitir si se desea indicándolo, *Ej*: "*-_id*"
 
 #### Obtener listado de tags utilizados en el total de anuncios
