@@ -20,7 +20,7 @@ router.get('/', async (req, res, next) => {
       const tags = req.query.tags;
   
       // Defino variables de opciones de listado, pasados en la querystring
-      const limit = parseInt(req.query.limit) || 2;
+      const limit = parseInt(req.query.limit) || 8;
       const skip = parseInt(req.query.skip);
       const sort = req.query.sort;
       const fields = req.query.fields;
