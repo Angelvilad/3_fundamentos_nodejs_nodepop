@@ -32,6 +32,7 @@ require('./models/Anuncio');
 /**
  *  Rutas de mi API
  */
+app.use('/apiv1/authenticate', require('./routes/apiv1/authenticate'));
 app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
 
 /**

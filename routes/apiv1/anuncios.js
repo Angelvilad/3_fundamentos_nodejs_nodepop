@@ -5,6 +5,10 @@ const router = express.Router();
 const createError = require('http-errors');
 
 const Anuncio = require('../../models/Anuncio');
+const jwtAuth = require('../../lib/jwtAuth');
+
+// Protegemos todo el middleware de la ruta del API con JWT Auth
+router.use(jwtAuth());
 
 /**
  * GET /
