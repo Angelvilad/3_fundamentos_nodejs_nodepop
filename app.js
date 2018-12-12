@@ -36,9 +36,16 @@ app.use('/apiv1/authenticate', require('./routes/apiv1/authenticate'));
 app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
 
 /**
+ * Configuramos y usamos multiidioma en express
+ */
+const i18n = require('./lib/i18nConfigure')();
+app.use(i18n.init);
+
+/**
  * rutas de mi aplicacion web
  */
-app.use('/', require('./routes/index'));
+app.use('/',      require('./routes/index'));
+app.use('/lang',  require('./routes/lang'));
 
 
 // catch 404 and forward to error handler
