@@ -18,7 +18,7 @@ Así mismo hay una página principal **http://localhost:[port]/** que ofrece un 
 - *urlFoto*: nombre del archivo de la foto
 - *tags*: cada anuncio contendrá uno o varios de estos: motor, mobile, lifestyle, work
 
-## Inicializando base de datos y *Nodepop*
+## Inicializando base de datos, *Nodepop* y microservicio de creación de Thumbnail
 
 Hay que tener instalado *nodejs* y *mongoDB*
 
@@ -26,13 +26,20 @@ Para inicializar el servidor de la base de datos *mongoDB*, ir a la ruta donde e
 
 Si no hemos indicado otro puerto, por defecto *MongoDB* utilizará el 27017.
 
-Antes de inicializar *Nodepop* hay que definir una variable de entorno que especifique la url de conexión a la base de datos MongoDB establecida previamente. Esta debe quedar guardad en un archivo, en la raiz del proyecto, llamado *.env*. Dentro se debe establecer la variable de entorno *MONGOOSE_CONNECTION_STRING* que indique la url (en protocolo mongodb://) para conectar a la base de datos. Ej. *MONGOOSE_CONNECTION_STRING=mongodb://localhost:27017/nodepop*. Cambiar el puerto si se ha establecido otro cuando lenvantamos el servidor mongoDB. */nodepop* en la url indica la base de datos a la que se va a conectar
+Antes de inicializar *Nodepop* hay que definir una variable de entorno que especifique la url de conexión a la base de datos MongoDB establecida previamente. Esta debe quedar guardad en un archivo, en la raiz del proyecto, llamado *.env*. Dentro se debe establecer la variable de entorno *MONGOOSE_CONNECTION_STRING* que indique la url (en protocolo mongodb://) para conectar a la base de datos. Ej. *MONGOOSE_CONNECTION_STRING=mongodb://localhost:27017/nodepop*. Cambiar el puerto si se ha establecido otro cuando lenvantamos el servidor mongoDB. */nodepop* en la url indica la base de datos a la que se va a conectar.
+
+Podemos restablecer un contenido inicial de ejemplo en la base de datos ejecutando: *"npm run installDB"*. Previamente eliminará todo contenido de las colecciones *anuncios* y *usuarios* de la base de datos si los hubiera, y creará luego, unos anuncios y usuarios ya preestablecidos, a modo de mockdata, en la carpeta del proyecto: *initial_data*, archivso en formato *JSON*: *"anuncios.json"* y *"usuarios.json"*.
 
 Para inicializar *Nodepop* se puede hacer en los siguientes entornos:
 - Desarrollo: *"npm run dev"* (ejecutará nodemon)
 - Producción: *"npm start"* (ejecutará node)
 
-Podemos restablecer un contenido inicial de ejemplo en la base de datos ejecutando: *"npm run installDB"*. Previamente eliminará todo contenido de las colecciones *anuncios* y *usuarios* de la base de datos si los hubiera, y creará luego, unos anuncios y usuarios ya preestablecidos, a modo de mockdata, en la carpeta del proyecto: *initial_data*, archivso en formato *JSON*: *"anuncios.json"* y *"usuarios.json"*.
+Para inicializar microserivcio de creación de thumbnail se puede hacer ejecutando el script:
+- *"npm run microservice-thumbnail"*
+
+Nota: Es recomendable utilizar un gestor de procesos como PM2 para desplegar tanto la aplicacion como los servicios de una manera más cómoda y automatizada, siendo totalmente configurable, por ejemplo se pueden establecer nº de instancias de microservicios, rutas para los *logs* y *logs de error* etc..
+
+
 
 ## Recursos del API
 
