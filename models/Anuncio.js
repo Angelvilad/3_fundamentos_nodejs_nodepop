@@ -7,9 +7,9 @@ const anuncioSchema = mongoose.Schema({
     nombre: String,
     venta: Boolean,
     precio: Number,
-    foto: String,
     tags: [String],
-    urlFoto: String
+    urlFoto: String,
+    urlThumbnail: String
 });
 
 // crear un método estatico

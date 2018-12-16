@@ -1,11 +1,17 @@
 'use strict';
 
+const path = require('path');
+
 const express = require('express');
 const router = express.Router();
 const createError = require('http-errors');
+const cote = require('cote');
+const { body, validationResult } = require('express-validator/check');
 
 const Anuncio = require('../../models/Anuncio');
 const jwtAuth = require('../../lib/jwtAuth');
+const upload = require('../../lib/uploadConfig');
+const { validityTags } = require('../../lib/requestValidations');
 
 // Protegemos todo el middleware de la ruta del API con JWT Auth
 router.use(jwtAuth());
@@ -38,7 +44,6 @@ router.get('/', async (req, res, next) => {
       if (nombre) {
         filtro.nombre = new RegExp('^' + req.query.nombre, "i"); //convierto nombre de la query a exp reg (que empiece por)
         //filtro.nombre = nombre;
-        console.log(nombre);
       }
   
       // Comprueba si hay venta y lo añado a filtro
@@ -116,19 +121,64 @@ router.get('/:id', async (req,res,next) => {
 
 /**
  * POST /
- * Crea un anuncio en la coleccion
+ * Crea un anuncio en la coleccion.
+ * La peticion debe ser enctype = multipart/form-data. En el body del request son requeridos los campos:
+ * "nombre[String(alfanumerico)], venta[Boolean], precio[numerico], 
+ * tags[lista separada por comas de al menos uno de estos 4: lifestyle, work, mobile, motor]"
+ * El envio de un fichero con la imagen es opcional, y en caso de enviarse se solicitará a un 
+ * microservicio la creacion de una imagen reducida (con el prefijo "thumbnail" en el nombre) que será guardada
+ * en la misma ruta donde se guarda la imagen pasada. Entonces finalmente los campos urlFoto y urlThumbnail seran persistidos
+ * junto con el resto de campos requeridos en la base de datos. 
  */
-router.post('/', async (req, res, next) => {
+router.post('/', upload.single('imagen'), [
+    body('nombre').not().isEmpty().withMessage('El campo nombre es obligatorio')
+        .not().isAlphanumeric().withMessage('El campo nombre debe ser alfanumérico'),
+    body('venta').not().isEmpty().withMessage('El campo venta es obligatorio')
+        .isBoolean().withMessage('El campo venta debe ser un booleano'),
+    body('precio').not().isEmpty().withMessage('El campo precio es obligatorio')
+        .isNumeric().withMessage('El campo precio debe ser numérico'),
+    body('tags').not().isEmpty().withMessage('El campo tag es obligatorio')
+        .custom(validityTags)
+    ], async (req, res, next) => {
     try {
+        // comprobamos validaciones para los campos pasados en el body del request
+        const validations = validationResult(req);
+        
+        if ( !validations.isEmpty()) {
+            validations.throw();
+            return;
+        }
+
+        // declaramos requester para que solicite servicio de thumbnail
+        const thumbnailRequester = new cote.Requester({ name: 'Cliente de servicio thumbnail' });
+
+        // obtener datos en el body de la peticion e imagen subida
         const datosAnuncio = req.body;
+        datosAnuncio.urlFoto = req.file.filename;
 
-        // crear anuncio en memoria
-        const anuncio = new Anuncio(datosAnuncio);
+        thumbnailRequester.send({
+            type: 'create thumbnail', // quien quiera que escuche peticiones de tipo "create thumbnail"            
+            path: path.join(__dirname, '..', '..', 'public', 'images', 'anuncios'),
+            fileName: datosAnuncio.urlFoto 
+        }, async response => {
+            if (response.succes === false) {
+                console.log('No se ha podido crear el thumbnail de la imagen, el microservicio ha dado un error:', response.errMessage);
+                datosAnuncio.urlThumbnail = false;
+            } else {
+                console.log('Respueta de microservicioThumbnail:', response);
+                datosAnuncio.urlThumbnail = response.fileName;
+            }
+            
+            // crear anuncio en memoria
+            const anuncio = new Anuncio(datosAnuncio);
+        
+            // guardarlo en la base de datos
+            const anuncioGuardado = await anuncio.save();
 
-        //guardarlo en la base de datos
-        const anuncioGuardado = await anuncio.save();
+            res.json({ succes: true, result: anuncioGuardado });            
+        });
 
-        res.json({ succes: true, result: anuncioGuardado });
+        
 
     } catch(err) {
         next(err);

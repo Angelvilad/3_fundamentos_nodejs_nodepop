@@ -28,7 +28,6 @@ router.get('/', async (req, res, next) => {
     if (nombre) {
       filtro.nombre = new RegExp('^' + req.query.nombre, "i"); //convierto nombre de la query a exp reg (que empiece por)
       //filtro.nombre = nombre;
-      console.log(nombre);
     }
 
     // Comprueba si hay venta y lo añado a filtro
