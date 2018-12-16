@@ -32,7 +32,7 @@ Para inicializar *Nodepop* se puede hacer en los siguientes entornos:
 - Desarrollo: *"npm run dev"* (ejecutará nodemon)
 - Producción: *"npm start"* (ejecutará node)
 
-Podemos restablecer un contenido inicial de ejemplo en la base de datos ejecutando: *"npm run installDB"*. Previamente eliminará todo contenido de la colección *anuncios* de la base de datos si los hubiera, y creará luego, unos anuncios ya preestablecidos en la carpeta del proyecto: *initial_data*, archivo en formato *JSON* *"anuncios.json"*.
+Podemos restablecer un contenido inicial de ejemplo en la base de datos ejecutando: *"npm run installDB"*. Previamente eliminará todo contenido de las colecciones *anuncios* y *usuarios* de la base de datos si los hubiera, y creará luego, unos anuncios y usuarios ya preestablecidos, a modo de mockdata, en la carpeta del proyecto: *initial_data*, archivso en formato *JSON*: *"anuncios.json"* y *"usuarios.json"*.
 
 ## Recursos del API
 
@@ -40,6 +40,16 @@ El API responderá a la ruta **http://localhost:[port]/apiv1/anuncios**, devolvi
 - *success*: con valores *true* o *false*, que indicaran el exito o no de la petición.
 
 - *result*: Si la peticióm ha tenido éxito devolverá el objeto u objetos que responden a los parametros del request, o en caso de haber ocurrido un error a la hora de tratar la petición, se mostrará el error.
+
+Para hacer uso del API se requiere autentificación. Se debe mandar en las cabeceras de las peticiones, en el parámetro *x-access-token*, un token firmado que nos proporcionará el propio api tras autenticarse.
+
+### Hacer login para obtener token de autentificación
+#### POST http://localhost:[port]/apiv1/authenticate [enctype = x-www-form-urlencoded]
+
+Hacer peticion POST con las keys: *email* y *password*.
+
+A modo de mockdata, en la colección *usuarios* de la Base de Datos, estarán pesistidos como usuarios registrados los indicados en el archivo: *./initial_data/usuarios.json*, esto es: *email: user@example.com, password: 1234 (en la BD queda persistido un hash del password)*.
+Si el login se realiza de manera satisfactoria el API proporcionará un token valido para 2 días, que deberemos enviar en la cabecera bajo el parámetro *x-access-token*, en cada una de las peticiones, para poder hacer uso del API
 
 ### Respuestas a peticiones GET (parámetros en la query string)
 
@@ -70,9 +80,13 @@ Para obtener un listado completo de tags utilizado en el total de anuncios, el A
 Se podrá obtener un único anuncio especificando su *_id* en la base de datos, pasándolo como parámetro a la ruta del API: **http://localhost:[port]/apiv1/anuncios/:id**
 
 ### Respuestas a peticiones POST
+
 #### Crear un anuncio
-#### POST http://localhost:[port]/apiv1/anuncios
-Se podrá crear un anuncio, haciendo una petición *post* a la raiz de la url del API **http://localhost:[port]/apiv1/anuncios/**, e indicando en el body de la misma los registros y sus valores, no siendo persistido ningun registro en la base de datos que no corresponda con los establecidos en el modelo: nombre, precio, venta, urlFoto, tags. Si la operación ha tenido éxito devolverá como resultado el objeto del anuncio guardado.
+#### POST http://localhost:[port]/apiv1/anuncios [enctype = multipart/form-data]
+Se podrá crear un anuncio, haciendo una petición *post* a la raiz de la url del API **http://localhost:[port]/apiv1/anuncios/**, e indicando en el body de la misma los registros y sus valores, no siendo persistido ningun registro en la base de datos que no corresponda con los establecidos en el modelo: *nombre, precio, venta, tags*. Todos estos son obligatorios/requeridos.
+Opcionalmente se puede enviar un archivo de una imagen, quedando persistida en la BD el nombre del archivo bajo el registro: *urlFoto*. Este archivo quedará guardado en la carpeta *./public/images/anuncios*.
+
+A su vez, el servidor solicitará a un microservicio la creacion de un thumbnail de 100x100 de esa misma imagen, que tambien se guardará en la misma ruta que la imagen original con el prefijo *"thumbnail-"* en el nombre, y persistirá también en la BD el nombre del archivo bajo el registro: *urlThumbnail*.
 
 ### Respuestas a peticiones DELETE
 #### Eliminar un anuncio
@@ -87,3 +101,5 @@ Se podrá actualizar valores en los registros de un anuncio, haciendo una petici
 ## Uso de la pagina principal de WEB APP
 #### http://localhost:[port]/
 Se podrá acceder a la pagina principal en la ruta **http://localhost:[port]/**, donde se mostrará un página html con una lista de los anuncios. Esta lista igualmente se puede filtrar por medio de la query string (mismos parametros que los descritos en el uso del API), y moldear con los parametros: limit, skip, sort, para limitar el numero de anuncios listados, mostrar a partir del anuncio siguiente al especificado, y ordenar ascendente o descendente (con el "*-*" delante), respectivamente.
+
+La pagina servida hace uso de la Internaciolización y es multidioma (español, inglés), quedando registrada la preferencia indicada por el usuario durante 2 dias. Si no lo ha indicado expresamente en la página, se considerarán las preferencias indicadas por el cliente en la cabecera de la petición.
