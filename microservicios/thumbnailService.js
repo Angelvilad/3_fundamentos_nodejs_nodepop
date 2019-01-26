@@ -16,7 +16,7 @@ thumbnailResponder.on('create thumbnail', (req, done) => {
     jimp.read(path.join(req.path, req.fileName))
         .then(async image => {
                 await image
-                .resize(100, 100)
+                .scaleToFit(100, 100)
                 .quality(50)
                 .writeAsync(path.join(req.path, newFileName));
                 
