@@ -1,5 +1,16 @@
 # Nodepop
 
+## Notas para la practica del módulo DEVOPS
+
+Esta aplicacion de node se ha desplegado en una instancia EC2 de AWS, utilizando NGINX como servidor WEB y haciendo proxy inverso para esta app de node llamada NODEPOP.
+
+Este despliegue dará servicio a los siguientes dominios:
+IP: 63.34.67.252 
+  -Se servirá una página estática, utilizando una plantilla Bootstrap,
+DNS publico proporcionado por AWS: ec2-63-34-67-252.eu-west-1.compute.amazonaws.com
+  -Se servirá la API creada en Node llamada NODEPOP
+  
+ 
 ## Descripción
 
 Práctica de una aplicación backend que corre en nodejs y crea un servidor http que proporciona un API con recursos para gestionar una  colección de anuncios de artículos de compra/venta en una base de datos MongoDB.
